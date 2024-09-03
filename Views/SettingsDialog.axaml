@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:CustomEmailer.ViewModels"
+        mc:Ignorable="d" Width="450" Height="350"
+        x:Class="CustomEmailer.SettingsDialog"
+        Title="Settings"
+        x:Name="SettingsWindow"
+        WindowStartupLocation="CenterOwner"
+        x:DataType="viewModels:SettingsDialogViewModel">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Sender Name" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="SMTP Server" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="SMTP Port" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Username" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Password" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Attachments Path" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AppSettings.SenderName}" Watermark="Enter sender name" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding AppSettings.SmtpServer}" Watermark="Enter SMTP server" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding AppSettings.SmtpPort}" Watermark="Enter SMTP port" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding AppSettings.Username}" Watermark="Enter email username" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding AppSettings.Password}" Watermark="Enter email password" PasswordChar="*" Classes="revealPasswordButton" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+            <TextBox Text="{Binding AppSettings.AttachmentsFolder}" Watermark="Select folder with attachments" Width="245" VerticalAlignment="Center"/>
+            <Button Content="..." Command="{Binding SelectAttachmentsFolderCommand}" CommandParameter="{Binding ElementName=SettingsWindow}" HorizontalAlignment="Right" />
+        </StackPanel>
+        
+
+        <Button Grid.Row="6" Grid.Column="1" Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Right" Margin="0, 10, 0, 0"/>
+    </Grid>
+</Window>

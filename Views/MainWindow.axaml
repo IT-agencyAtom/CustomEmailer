@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CustomEmailer.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="800" Height="850"
+        x:Class="CustomEmailer.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        x:Name="ApplicationWindow"
+        Title="CustomEmailer"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=ApplicationWindow}"/>
+                    <Separator/>
+                    <MenuItem Header="_Settings" Command="{Binding OpenSettingsCommand}" CommandParameter="{Binding ElementName=ApplicationWindow}"/>
+                    <Separator/>
+                    <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Clients}"
+                  GridLinesVisibility="All"
+                  BorderThickness="1" BorderBrush="Gray" Margin="10,10,0,0">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Send" Binding="{Binding IsSelected}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Prefix" Binding="{Binding Prefix}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Attachment File" Binding="{Binding Attachment}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Margin="10, 10, 0, 0">
+          <TextBlock Text="Subject" Margin="0 5" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+          <TextBox Text="{Binding Subject}" Watermark="Enter email subject" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+          <TextBlock Text="Body" Margin="0 5" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+          <TextBox Text="{Binding Body}" Watermark="Enter email body" Height="140" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <Button Grid.Row="3" Content="Send" Command="{Binding SendCommand}" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>
