@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Avalonia;
@@ -39,6 +40,8 @@ namespace CustomEmailer.ViewModels
             var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Choose Excel File",
+                FileTypeFilter = new List<FilePickerFileType>
+                    { new("Excel Files") { Patterns = new List<string> { "*.xls", "*.xlsx" } } },
                 AllowMultiple = false
             });
 
